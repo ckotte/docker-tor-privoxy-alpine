@@ -1,11 +1,11 @@
-FROM alpine:edge
+FROM alpine:3.6
+
+RUN apk --update add privoxy tor runit
+
+COPY service /etc/service/
+#COPY entrypoint.sh /
 
 EXPOSE 8118 9050
 
-RUN echo '@testing http://nl.alpinelinux.org/alpine/edge/testing' \
-    >> /etc/apk/repositories && \
-    apk --update add privoxy tor@testing runit@testing
-
-COPY service /etc/service/
-
+#ENTRYPOINT ["/entrypoint.sh"]
 CMD ["runsvdir", "/etc/service"]
